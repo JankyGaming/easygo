@@ -240,3 +240,18 @@ func DecodeBody(b io.Reader, dest interface{}) ([]byte, error) {
 
 	return byt, nil
 }
+
+//DecodeMap converts the map provided at src into the type pointed to at dest (make sure you point to it with "&")
+func DecodeMap(src, dest interface{}) error {
+	byt, err := json.Marshal(src)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(byt, &dest)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
