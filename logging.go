@@ -8,12 +8,13 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/mongodb/mongo-go-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 //NewLogClient returns a client for writing logs and errors to the mongo instance at mongoURL, under the database Logs, under the collection serviceName
 func NewLogClient(mongoURL string, serviceName string) (*LogClient, error) {
-	mongoCli, err := mongo.NewClient(mongoURL)
+	mongoCli, err := mongo.NewClient(options.Client().ApplyURI(mongoURL))
 	if err != nil {
 		return nil, err
 	}
